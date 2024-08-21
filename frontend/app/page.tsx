@@ -1,5 +1,19 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'GET') {
+    const users = [
+      { id: 1, name: 'John Doe' },
+      { id: 2, name: 'Jane Smith' },
+    ];
+    res.status(200).json(users);
+  } else {
+    res.setHeader('Allow', 'GET');
+      res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+}
 
 export default function Home() {
   return (
